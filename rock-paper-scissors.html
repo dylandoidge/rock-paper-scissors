@@ -1,0 +1,67 @@
+<script>
+    var humanScore = 0;
+    var computerScore = 0;
+    const rounds = 5;
+
+    function getComputerChoice() {
+        const min = 1;
+        const max = 3;
+
+        let num = Math.floor(Math.random() * (max - min + 1) + min);
+
+        if (num === 1)
+            return "rock";
+        else if (num === 2) 
+            return "paper";
+        else if (num === 3)
+            return "scissors";
+    }
+
+    function getHumanChoice() {
+        return prompt("Input value: ");
+    }
+
+    function playRound(humanChoice, computerChoice) {
+        humanChoice = humanChoice.toLowerCase();
+
+        if (computerChoice === humanChoice) {
+            console.log("Draw! Both selected " + humanChoice);
+
+            humanChoice = getHumanChoice();
+            computerChoice = getComputerChoice();
+
+            playRound(humanChoice, computerChoice);
+        }
+        else if ((computerChoice === "rock" && humanChoice === "paper") ||
+                 (computerChoice === "paper" && humanChoice === "scissors") ||
+                 (computerChoice === "scissors" && humanChoice === "rock")) 
+        {
+            humanScore++;
+            console.log("You win! " + humanChoice + " beats " + computerChoice + ". Score: You - " + humanScore + " Computer - " + computerScore);
+        } 
+        else 
+        {
+            computerScore++;
+            console.log("You lose! " + computerChoice + " beats " + humanChoice  + ". Score: You - " + humanScore + " Computer - " + computerScore);
+        } 
+    }
+
+    function playGame() {
+        console.log('Best of 5 rounds rock-paper-scissors. Good luck!');
+
+        for (let i = 0; i < rounds; i++) {
+            let humanChoice = getHumanChoice();
+            let computerChoice = getComputerChoice();
+
+            playRound(humanChoice, computerChoice);
+        }
+
+        if (humanScore > computerScore)
+            console.log('Game over! You WIN! Score: ' + humanScore + '-' + computerScore);
+        else
+            console.log('Game over! You LOSE! Score: ' + computerScore + '-' + humanScore)
+    }
+
+    playGame();
+    
+</script>
